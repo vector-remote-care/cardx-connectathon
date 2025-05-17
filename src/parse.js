@@ -6,12 +6,12 @@ const first = (arr) => arr.length > 0 ? arr[0] : null;
 
 // FHIR Paths can be referenced here: https://confluence.hl7.org/spaces/COD/pages/345541798/FHIRPath
 const parseMap = module.exports.parseMap = {
-  patient:                              pipe(fhr("subject.reference"), first),
+  patient:                              pipe(fhr("subject.reference"), first, (str) => str.split("/").pop()),
+  device:                               pipe(fhr("device.reference"), first, (str) => str.split("/").pop()),
   effective:                            pipe(fhr("effectiveDateTime"), first),
-  note:                                 pipe(fhr("note.text"), first),
-  device:                               pipe(fhr("device.reference"), first),
   connectivityStatus:                   pipe(fhr("component.where(code.coding.code='connectivity-status').valueCodeableConcept.coding.code"), first),
   connectivityModifier:                 pipe(fhr("component.where(code.coding.code='connectivity-modifier').valueCodeableConcept.coding.code"), first),
+  note:                                 pipe(fhr("note.text"), first),
   lastCiedConnectivityDate:             pipe(fhr("component.where(code.coding.code='last-cied-connectivity-time').valueDateTime"), first),
   lastMonitorConnectivityDate:          pipe(fhr("component.where(code.coding.code='last-monitor-connectivity-time').valueDateTime"), first),
   nextCiedConnectivityDate:             pipe(fhr("component.where(code.coding.code='next-cied-connectivity-date').valueDateTime"), first),
