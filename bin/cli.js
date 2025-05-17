@@ -1,5 +1,5 @@
-const {getObservationCiedConnectivityResources} = require('./src/fetch.js');
-const {parseResource, parseMap} = require('./src/parse.js');
+const {getObservationCiedConnectivityResources} = require('../src/fetch.js');
+const {parseResource, parseMap} = require('../src/parse.js');
 
 (async () => {
   // fetch the data from HAPI FHIR test server
