@@ -1,0 +1,38 @@
+name: Update Submodules and Generate Readme
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  update-and-generate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository and submodules
+      uses: actions/checkout@v3
+
+    - name: Install Dependencies
+      run: npm install --silent
+   
+    - name: Generate README
+      run: node bin/update-readme.js
+
+    # Step 5: Commit generated report changes if there are any
+    - name: Commit generated report changes
+      run: |
+        git add .
+        if git diff-index --quiet HEAD; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update README"
+        fi
+
+    # Step 6: Push changes to the main branch
+    - name: Push changes
+      run: |
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
