@@ -3,7 +3,7 @@ name: Update Submodules and Generate Readme
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
