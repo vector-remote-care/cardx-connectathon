@@ -32,9 +32,9 @@ jobs:
           git commit -m "Update README"
         fi
 
-    # Step 6: Push changes to the main branch
+    # Step 6: Push changes to the master branch
     - name: Push changes
       run: |
-        git push origin main
+        git push origin master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
