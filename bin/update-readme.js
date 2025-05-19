@@ -14,7 +14,7 @@ const tableConfig = {
   connectivityStatus: {
     format: (value) => {
       if(value !== 'connected') {
-        return `$\${\color{red}${value}}$$`;
+        return `$\${\\color{red}${value}}$$`;
       }
       return `**${value}**`;
     }
