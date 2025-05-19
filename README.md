@@ -7,5 +7,5 @@ The following table is generated using fetched data from observations on the FHI
 | patient | device | connectivityStatus | connectivityModifier | note |
 | --- | --- | --- | --- | --- |
 | BIOcase1Patient | BIOcase1Cied | **connected** |  | Case 1: Setup after monitor replacement not complete |
-| uc1ACMEPatient | uc1ACMEICD | **disconnected** | setup-not-completed | The patient does not have an active monitor. |
+| uc1ACMEPatient | uc1ACMEICD | $${color{red}disconnected}$$ | setup-not-completed | The patient does not have an active monitor. |
 
