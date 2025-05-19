@@ -13,4 +13,6 @@ The following table is generated using fetched data from observations on the FHI
 | 798110 | Aveir LP LSP202V | Case 1: Patient receives a new monitor that has not been setup | $${\color{red}disconnected}$$ | setup-not-completed |
 | uc2ACMEPatient | ICDExample2 | The patient has been disconnected for more than 90 days and is listed as inactive. | $${\color{red}disconnected}$$ | inactive |
 | 798118 | Aveir LP LSP202V | Case 2: Patient is inactive due to lack of connectivity. | $${\color{red}disconnected}$$ | inactive |
+| 798110 | Aveir LP LSP202V | Case 1: Setup after monitor replacement not complete | $${\color{red}disconnected}$$ | setup-not-completed |
+| 798118 | LSRM01 | Case 2: Patient is inactive due to lack of connectivity. | $${\color{red}disconnected}$$ | inactive |
 
