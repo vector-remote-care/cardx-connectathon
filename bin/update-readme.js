@@ -11,7 +11,14 @@ const tableConfig = {
   device: {},
   effective: {hidden: true},
   note: {},
-  connectivityStatus: {format: (value) => `**${value}**`},
+  connectivityStatus: {
+    format: (value) => {
+      if(value !== 'connected') {
+        return `$\${\color{red}${value}}$$`;
+      }
+      return `**${value}**`;
+    }
+  },
   connectivityModifier: {},
   lastCiedConnectivityDate: {hidden: true},
   lastMonitorConnectivityDate: {hidden: true},
