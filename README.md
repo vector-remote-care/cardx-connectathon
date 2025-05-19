@@ -6,7 +6,7 @@ The following table is generated using fetched data from observations on the FHI
 
 | pt | Model | note | Status |   |
 | --- | --- | --- | --- | --- |
-| 798133 | Aveir LP LSP201A | Case 4: Patient informs clinic that they will be away from their monitor. | **connected** |  |
+| 798133 | Aveir LP LSP201A | Case 4: Patient informs clinic that they will be away from their monitor. | $${\color{red}disconnected}$$ |  |
 | uc4ACMEPatient | PacemakerExample4 | The patient has been suspended from the disconnected list. | $${\color{red}disconnected}$$ | suspended |
 | BIOcase34Patient | Amvia Sky DR-T | Case 4: Patient informs clinic that they will be away from their monitor. | $${\color{red}disconnected}$$ |  |
 
