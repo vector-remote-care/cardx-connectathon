@@ -1,4 +1,4 @@
-name: Update Submodules and Generate Readme
+name: Fetch Observations and Generate Readme
 
 on:
   schedule:
