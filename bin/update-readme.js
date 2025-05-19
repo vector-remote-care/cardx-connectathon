@@ -17,9 +17,12 @@ const tableConfig = {
         return `$\${\\color{red}${value}}$$`;
       }
       return `**${value}**`;
-    }
+    },
+    label: 'Status',
   },
-  connectivityModifier: {},
+  connectivityModifier: {
+    label: ' ',
+  },
   lastCiedConnectivityDate: {hidden: true},
   lastMonitorConnectivityDate: {hidden: true},
   nextCiedConnectivityDate: {hidden: true},
@@ -44,7 +47,7 @@ const tableConfig = {
     (key) => !tableConfig[key]?.hidden
   );
 
-  const tableHeader = visibleKeys.map((key) => `| ${key} `).join('') + '|';
+  const tableHeader = visibleKeys.map((key) => `| ${tableConfig[key].label || key} `).join('') + '|';
   const tableSeparator = visibleKeys.map(() => '| --- ').join('') + '|';
   const tableRows = results.map((result) => {
     return visibleKeys
