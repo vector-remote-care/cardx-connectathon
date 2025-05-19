@@ -1,6 +1,8 @@
 name: Update Submodules and Generate Readme
 
 on:
+  cron:
+    - cron: '*/10 6-10 18,19 5 *'
   push:
     branches:
       - master
