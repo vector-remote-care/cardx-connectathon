@@ -8,5 +8,9 @@ module.exports.getObservationCiedConnectivityResources = async () => {
     }
   });
 
+  if(data.data.total === 0) {
+    return [];
+  }
+
   return data.data.entry.map((entry) => entry.resource);
 };
