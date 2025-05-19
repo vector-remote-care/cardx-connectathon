@@ -6,15 +6,15 @@ The following table is generated using fetched data from observations on the FHI
 
 | pt | Model | note | Status |   |
 | --- | --- | --- | --- | --- |
-| 798146 | CDHFA700Q | Case 5: Dual chamber pacemaker placed for complete heart block.(Disconnected) | $${\color{red}disconnected}$$ |  |
-| uc5ACMEPatient | PacemakerExample5 | The patient has not connected for at least 14 days. | $${\color{red}disconnected}$$ |  |
-| ucX5Patient | XXX55 | Communicator Not Connecting | $${\color{red}disconnected}$$ |  |
-| BIOcase5Patient | Amvia Sky DR-T | Case 5: vendor specific disconnected (monitor offline) | $${\color{red}disconnected}$$ |  |
+| 798169 | 5500 | Case 6 | **connected** |  |
+| uc6ACMEPatient | PacemakerExample6 |  | **connected** |  |
+| ucX6Patient | XXX66 |  | **connected** |  |
+| BIOcase5Patient | Amvia Sky DR-T | Case 6 | **connected** |  |
 
 | pt | effective | Last Cied | Last Mon | Last Int | Next Cied | Next Mon | Next Int |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 798146 | 5/19/2025 | -15 | -15 | -50 | 1 | 1 | 41 |
-| uc5ACMEPatient | 5/19/2025 | -15 | -15 | -50 | 1 | 1 | 37 |
-| ucX5Patient | 5/19/2025 | -15 | -15 | -50 | -14 | -14 | 41 |
-| BIOcase5Patient | 5/19/2025 | -21 | -21 | -21 | 1 | 1 | 41 |
+| 798169 | 5/19/2025 | -5 | -5 | -70 | 1 | 1 | 21 |
+| uc6ACMEPatient | 5/19/2025 | -5 | -5 | -80 | 1 | 1 | 21 |
+| ucX6Patient | 5/19/2025 | -5 | -5 | -70 | -4 | -4 | 21 |
+| BIOcase5Patient | 5/19/2025 | -5 | -5 | -5 | 1 | 1 | 21 |
 
