@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "axios": "^1.9.0",
-    "fhirpath": "^4.2.1"
+    "fhirpath": "^4.2.1",
+    "throat": "^6.0.2"
   }
 }
