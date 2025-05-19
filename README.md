@@ -17,13 +17,10 @@ The following table is generated using fetched data from observations on the FHI
 | 795776 | 795798 | **disconnected** |  | Case 5: vendor specific A |
 | 795860 | 795862 | **disconnected** | inactive | Case 8: patient doesn't wanting monitoring |
 | 793950 | 793953 | **disconnected** | inactive | The patient is listed as inactive in the system after being disconnected for more than 90 days. |
-| 796969 | 796971 | **connected** |  |  |
-| 796973 | 796975 | **connected** |  |  |
-| 796977 | 796979 | **disconnected** |  | Communicator Not Connecting |
-| 796981 | 796983 | **connected** |  |  |
-| 796985 | 796987 | **connected** |  |  |
-| 796989 | 796991 | **disconnected** |  | Communicator Not Connecting |
-| 796993 | 796994 | **not-applicable** | transferred | Transferred |
-| 796996 | 796998 | **not-applicable** | unenrolled | Monitoring Disabled |
 | BIOcase1Patient | BIOcase1Cied | **connected** |  | Case 1: Setup after monitor replacement not complete |
+| BIOcase2Patient | BIOcase2Cied | **disconnected** | inactive | Case 2: Patient is inactive due to lack of connectivity |
+| BIOcase5Patient | BIOcase5Cied | **disconnected** |  | Case 5: vendor specific disconnected (monitor offline) |
+| BIOcase8Patient | BIOcase8Cied | **disconnected** | unenrolled | Case 8: Patient has previously expressed not wanting to continue remote monitoring |
+| BIOcase34Patient | BIOcase34Cied | **connected** |  | Case 3: Patient connected recently |
+| BIOcase34Patient | BIOcase34Cied | **disconnected** |  | Case 4: Patient informs clinic that they will be away from their monitor. |
 
