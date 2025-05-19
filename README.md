@@ -6,16 +6,15 @@ The following table is generated using fetched data from observations on the FHI
 
 | patient | Model | note | Status |   |
 | --- | --- | --- | --- | --- |
-| BIOcase1Patient | Rivacor 7 DR-T | Case 1: Setup after monitor replacement not complete | **connected** |  |
-| BIOcase2Patient | Rivacor 7 DR-T | Case 2: Patient is inactive due to lack of connectivity | $${\color{red}disconnected}$$ | inactive |
-| BIOcase34Patient | Amvia Sky DR-T | Case 3: Patient connected recently | **connected** |  |
-| uc1ACMEPatient | ICDExample1 | The patient does not have an active monitor. | $${\color{red}disconnected}$$ | setup-not-completed |
-| 798106 | XXX11 |  | **connected** |  |
-| uc2ACMEPatient | ICDExample2 | The patient has been disconnected for more than 90 days and is listed as inactive. | $${\color{red}disconnected}$$ | inactive |
-| 798118 | Aveir LP LSP202V | Case 2: Patient is inactive due to lack of connectivity. | $${\color{red}disconnected}$$ | inactive |
-| 798110 | Aveir LP LSP202V | Case 1: Setup after monitor replacement not complete | $${\color{red}disconnected}$$ | setup-not-completed |
-| 798118 | LSRM01 | Case 2: Patient is inactive due to lack of connectivity. | $${\color{red}disconnected}$$ | inactive |
-| ucX3Patient | XXX33 |  | **connected** |  |
 | 798133 | Aveir LP LSP201A | Case 3: Patient connected recently. | **connected** |  |
 | uc3ACMEPatient | PacemakerExample3 |  | **connected** |  |
+| ucX3Patient | XXX33 |  | **connected** |  |
+| BIOcase34Patient | Amvia Sky DR-T | Case 3: Patient connected recently | **connected** |  |
+
+| pt | effective | Last Cied | Last Mon | Last Int | Next Cied | Next Mon | Next Int |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 798133 | 5/19/2025 | -1 | 0 | -80 | 1 | 1 | 11 |
+| uc3ACMEPatient | 5/19/2025 | -1 | -1 | -80 | 1 | 1 | 11 |
+| ucX3Patient | 5/19/2025 | -1 | 0 | -80 | 0 | 1 | 11 |
+| BIOcase34Patient | 5/19/2025 | -1 | 0 | -1 | 1 | 1 | 11 |
 
