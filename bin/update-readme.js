@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const {getObservationCiedConnectivityResources,getDeviceResources} = require('../src/fetch.js');
-const {parseResource, parseMap} = require('../src/parse.js');
+const {parseResource, deltaIfyDates, useCaseMfg} = require('../src/parse.js');
 const templatePath = path.resolve(__dirname, '../template/readme-template.md');
 const outputPath = path.resolve(__dirname, '../README.md');
 
@@ -39,10 +39,10 @@ const tableConfig = {
   const data = await getObservationCiedConnectivityResources();
 
   // Parse using provided FHIR Paths (https://confluence.hl7.org/spaces/COD/pages/345541798/FHIRPath)
-  const results = data.map(parseResource);
-
-  const resultsWithMfgData = await Promise.all(
-    results.map(async (result) => {
+  const results = (await Promise.all(data
+    .map(parseResource)
+    .map(deltaIfyDates)
+    .map(async (result) => {
       const deviceId = result.device;
       if (!deviceId) {
         return result;
@@ -59,9 +59,8 @@ const tableConfig = {
         modelNumber: deviceResource.modelNumber,
       };
     })
-  );
-
-  resultsWithMfgData.sort((a, b) => a.effective - b.effective);
+  ))
+  .sort((a, b) => a.effective - b.effective);
 
   const readmeTemplate = fs.readFileSync(templatePath, 'utf8');
   let output = readmeTemplate + '\n\n## Cied Connectivity Observations\n\n';
@@ -73,7 +72,7 @@ const tableConfig = {
 
   const tableHeader = visibleKeys.map((key) => `| ${tableConfig[key].label || key} `).join('') + '|';
   const tableSeparator = visibleKeys.map(() => '| --- ').join('') + '|';
-  const tableRows = resultsWithMfgData.map((result) => {
+  const tableRows = results.map((result) => {
     return visibleKeys
       .map((key) => {
         const value = result[key] ?? '';
@@ -84,6 +83,34 @@ const tableConfig = {
   }).join('\n');
   const table = [tableHeader, tableSeparator, tableRows].join('\n');
   output += table + '\n\n';
+
+  const hideNan = (v) => isNaN(v) ? '-' : v;
+
+  const tableDatesConfig = {
+    patient: {label: 'pt'},
+    effective: {format: (value) => new Date(value).toLocaleDateString('en-US')},
+    lastCiedConnectivityDate: {label: 'Last Cied', format: hideNan},
+    lastMonitorConnectivityDate: {label: 'Last Mon', format: hideNan},
+    lastRemoteInterrogationDate: {label: 'Last Int', format: hideNan},
+    nextCiedConnectivityDate: {label: 'Next Cied', format: hideNan},
+    nextMonitorConnectivityDate: {label: 'Next Mon', format: hideNan},
+    nextScheduledRemoteInterrogationDate: {label: 'Next Int', format: hideNan},
+  };
+  const tableDatesHeader = Object.keys(tableDatesConfig).map((key) => `| ${tableDatesConfig[key].label || key} `).join('') + '|';
+  const tableDatesSeparator = Object.keys(tableDatesConfig).map(() => '| --- ').join('') + '|';
+  const tableDatesRows = results
+  .map(useCaseMfg)
+  .map((result) => {
+    return Object.keys(tableDatesConfig)
+      .map((key) => {
+        const formatted = tableDatesConfig[key].format ? tableDatesConfig[key].format(result[key]) : result[key];
+        return `| ${formatted} `;
+      })
+      .join('') + '|';
+  }).join('\n');
+
+  const tableDates = [tableDatesHeader, tableDatesSeparator, tableDatesRows].join('\n');
+  output += tableDates + '\n\n';
 
   fs.writeFileSync(outputPath, output, 'utf8');
 

@@ -8,16 +8,16 @@ const first = (arr) => arr.length > 0 ? arr[0] : null;
 const parseMap = module.exports.parseMap = {
   patient:                              pipe(fhr("subject.reference"), first, (str) => str.split("/").pop()),
   device:                               pipe(fhr("device.reference"), first, (str) => str.split("/").pop()),
-  effective:                            pipe(fhr("effectiveDateTime"), first, Date),
+  effective:                            pipe(fhr("effectiveDateTime"), first, Date.parse),
   connectivityStatus:                   pipe(fhr("component.where(code.coding.code='connectivity-status').valueCodeableConcept.coding.code"), first),
   connectivityModifier:                 pipe(fhr("component.where(code.coding.code='connectivity-modifier').valueCodeableConcept.coding.code"), first),
   note:                                 pipe(fhr("note.text"), first),
-  lastCiedConnectivityDate:             pipe(fhr("component.where(code.coding.code='last-cied-connectivity-time').valueDateTime"), first),
-  lastMonitorConnectivityDate:          pipe(fhr("component.where(code.coding.code='last-monitor-connectivity-time').valueDateTime"), first),
-  nextCiedConnectivityDate:             pipe(fhr("component.where(code.coding.code='next-cied-connectivity-date').valueDateTime"), first),
-  nextMonitorConnectivityDate:          pipe(fhr("component.where(code.coding.code='next-monitor-connectivity-date').valueDateTime"), first),
-  lastRemoteInterrogationDate:          pipe(fhr("component.where(code.coding.code='last-interrogation-date').valueDateTime"), first),
-  nextScheduledRemoteInterrogationDate: pipe(fhr("component.where(code.coding.code='next-interrogation-date').valueDateTime"), first),
+  lastCiedConnectivityDate:             pipe(fhr("component.where(code.coding.code='last-cied-connectivity-time').valueDateTime"), first, Date.parse),
+  lastMonitorConnectivityDate:          pipe(fhr("component.where(code.coding.code='last-monitor-connectivity-time').valueDateTime"), first, Date.parse),
+  nextCiedConnectivityDate:             pipe(fhr("component.where(code.coding.code='next-cied-connectivity-date').valueDateTime"), first, Date.parse),
+  nextMonitorConnectivityDate:          pipe(fhr("component.where(code.coding.code='next-monitor-connectivity-date').valueDateTime"), first, Date.parse),
+  lastRemoteInterrogationDate:          pipe(fhr("component.where(code.coding.code='last-interrogation-date').valueDateTime"), first, Date.parse),
+  nextScheduledRemoteInterrogationDate: pipe(fhr("component.where(code.coding.code='next-interrogation-date').valueDateTime"), first, Date.parse),
 };
 
 // Takes a resource and parses it using the parseMap
@@ -26,3 +26,22 @@ const parseResource = module.exports.parseResource = (resource) => Object.fromEn
   key,
   parse(resource)
 ]));
+
+const numDays = (ms) => Math.round(ms / (1000 * 60 * 60 * 24));
+
+
+// Updates Dates to be relative number of days from effective date
+const deltaIfyDates = module.exports.deltaIfyDates = (resource) => ({
+  ...resource,
+  lastCiedConnectivityDate: numDays(resource.lastCiedConnectivityDate - resource.effective),
+  lastMonitorConnectivityDate: numDays(resource.lastMonitorConnectivityDate - resource.effective),
+  nextCiedConnectivityDate: numDays(resource.nextCiedConnectivityDate - resource.effective),
+  nextMonitorConnectivityDate: numDays(resource.nextMonitorConnectivityDate - resource.effective),
+  lastRemoteInterrogationDate: numDays(resource.lastRemoteInterrogationDate - resource.effective),
+  nextScheduledRemoteInterrogationDate: numDays(resource.nextScheduledRemoteInterrogationDate - resource.effective),
+});
+
+const useCaseMfg = module.exports.useCaseMfg = (resource) => ({
+  ...resource,
+  useCaseLabel: `${resource.manufacturer} Case #${resource.note?.match(/^Case (\d+)\b/)?.[1]}`
+});
