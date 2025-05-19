@@ -27,6 +27,8 @@ const tableConfig = {
   // Parse using provided FHIR Paths (https://confluence.hl7.org/spaces/COD/pages/345541798/FHIRPath)
   const results = data.map(parseResource);
 
+  results.sort((a, b) => a.effective - b.effective);
+
   const readmeTemplate = fs.readFileSync(templatePath, 'utf8');
   let output = readmeTemplate + '\n\n## Cied Connectivity Observations\n\n';
 

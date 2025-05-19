@@ -8,7 +8,7 @@ const first = (arr) => arr.length > 0 ? arr[0] : null;
 const parseMap = module.exports.parseMap = {
   patient:                              pipe(fhr("subject.reference"), first, (str) => str.split("/").pop()),
   device:                               pipe(fhr("device.reference"), first, (str) => str.split("/").pop()),
-  effective:                            pipe(fhr("effectiveDateTime"), first),
+  effective:                            pipe(fhr("effectiveDateTime"), first, Date),
   connectivityStatus:                   pipe(fhr("component.where(code.coding.code='connectivity-status').valueCodeableConcept.coding.code"), first),
   connectivityModifier:                 pipe(fhr("component.where(code.coding.code='connectivity-modifier').valueCodeableConcept.coding.code"), first),
   note:                                 pipe(fhr("note.text"), first),
