@@ -4,7 +4,7 @@ The following table is generated using fetched data from observations on the FHI
 
 ## Cied Connectivity Observations
 
-| patient | Model | note | Status |   |
+| pt | Model | note | Status |   |
 | --- | --- | --- | --- | --- |
 | 798133 | Aveir LP LSP201A | Case 3: Patient connected recently. | **connected** |  |
 | uc3ACMEPatient | PacemakerExample3 |  | **connected** |  |
