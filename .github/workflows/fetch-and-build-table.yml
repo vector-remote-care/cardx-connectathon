@@ -1,8 +1,6 @@
 name: Fetch Observations and Generate Readme
 
 on:
-  schedule:
-    - cron: '*/10 13-17 18,19 5 *'
   push:
     branches:
       - master
