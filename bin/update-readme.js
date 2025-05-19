@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {getObservationCiedConnectivityResources} = require('../src/fetch.js');
+const {getObservationCiedConnectivityResources,getDeviceResources} = require('../src/fetch.js');
 const {parseResource, parseMap} = require('../src/parse.js');
 const templatePath = path.resolve(__dirname, '../template/readme-template.md');
 const outputPath = path.resolve(__dirname, '../README.md');
@@ -9,6 +9,9 @@ const outputPath = path.resolve(__dirname, '../README.md');
 const tableConfig = {
   patient: {},
   device: {},
+  manufacturer: {},
+  serialNumber: {},
+  modelNumber: {},
   effective: {hidden: true},
   note: {},
   connectivityStatus: {
@@ -34,22 +37,43 @@ const tableConfig = {
 (async () => {
   // fetch the data from HAPI FHIR test server
   const data = await getObservationCiedConnectivityResources();
+
   // Parse using provided FHIR Paths (https://confluence.hl7.org/spaces/COD/pages/345541798/FHIRPath)
   const results = data.map(parseResource);
 
-  results.sort((a, b) => a.effective - b.effective);
+  const resultsWithMfgData = await Promise.all(
+    results.map(async (result) => {
+      const deviceId = result.device;
+      if (!deviceId) {
+        return result;
+      }
+      const deviceResource = await getDeviceResources(deviceId);
+      if (!deviceResource) {
+        return result;
+      }
+
+      return {
+        ...result,
+        manufacturer: deviceResource.manufacturer,
+        serialNumber: deviceResource.serialNumber,
+        modelNumber: deviceResource.modelNumber,
+      };
+    })
+  );
+
+  resultsWithMfgData.sort((a, b) => a.effective - b.effective);
 
   const readmeTemplate = fs.readFileSync(templatePath, 'utf8');
   let output = readmeTemplate + '\n\n## Cied Connectivity Observations\n\n';
 
   // Output as markdown table using tableConfig
-  const visibleKeys = Object.keys(parseMap).filter(
+  const visibleKeys = Object.keys(tableConfig).filter(
     (key) => !tableConfig[key]?.hidden
   );
 
   const tableHeader = visibleKeys.map((key) => `| ${tableConfig[key].label || key} `).join('') + '|';
   const tableSeparator = visibleKeys.map(() => '| --- ').join('') + '|';
-  const tableRows = results.map((result) => {
+  const tableRows = resultsWithMfgData.map((result) => {
     return visibleKeys
       .map((key) => {
         const value = result[key] ?? '';
