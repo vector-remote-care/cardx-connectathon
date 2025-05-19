@@ -7,7 +7,7 @@ const outputPath = path.resolve(__dirname, '../README.md');
 
 // For each table header, specify if it should be hidden, and specifiy a format cb function
 const tableConfig = {
-  patient: {},
+  patient: {label: 'pt'},
   device: {hidden: true},
   manufacturer: {hidden: true},
   serialNumber: {hidden: true, label: 'Serial'},
