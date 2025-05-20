@@ -41,7 +41,20 @@ const deltaIfyDates = module.exports.deltaIfyDates = (resource) => ({
   nextScheduledRemoteInterrogationDate: numDays(resource.nextScheduledRemoteInterrogationDate - resource.effective),
 });
 
+const determineUseCaseNum = (resource) => {
+  // Check notes
+  const caseNum = resource.note?.match(/^Case (\d+)\b/)?.[1];
+  if (caseNum) {
+    return parseInt(caseNum);
+  }
+  // Check patient id if it stats with uc\d or uc\d+
+  const patientId = resource.patient;
+  if (patientId && patientId.match(/^ucX?\d+/)) {
+    return parseInt(patientId.match(/^ucX?(\d+)/)?.[1]);
+  }
+}
+
 const useCaseMfg = module.exports.useCaseMfg = (resource) => ({
   ...resource,
-  useCaseLabel: `${resource.manufacturer} Case #${resource.note?.match(/^Case (\d+)\b/)?.[1]}`
+  useCase: determineUseCaseNum(resource),
 });
