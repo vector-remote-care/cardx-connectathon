@@ -42,18 +42,17 @@ const tableConfig = {
   const results = (await Promise.all(data
     .map(parseResource)
     .map(deltaIfyDates)
-    .map(async (result) => {
-      const deviceId = result.device;
-      if (!deviceId) {
-        return result;
+    .map(async (res) => {
+      if (!res.device) {
+        return res;
       }
-      const deviceResource = await getDeviceResources(deviceId);
+      const deviceResource = await getDeviceResources(res.device);
       if (!deviceResource) {
-        return result;
+        return res;
       }
 
       return {
-        ...result,
+        ...res,
         manufacturer: deviceResource.manufacturer,
         serialNumber: deviceResource.serialNumber,
         modelNumber: deviceResource.modelNumber,
