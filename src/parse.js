@@ -43,14 +43,14 @@ const deltaIfyDates = module.exports.deltaIfyDates = (resource) => ({
 
 const determineUseCaseNum = (resource) => {
   // Check notes
-  const caseNum = resource.note?.match(/^Case (\d+)\b/)?.[1];
+  const caseNum = resource.note?.match(/^Case (\d+)\b/i)?.[1];
   if (caseNum) {
     return parseInt(caseNum);
   }
   // Check patient id if it stats with uc\d or uc\d+
   const patientId = resource.patient;
-  if (patientId && patientId.match(/^ucX?\d+/)) {
-    return parseInt(patientId.match(/^ucX?(\d+)/)?.[1]);
+  if (patientId && patientId.match(/^ucX?\d+/i)) {
+    return parseInt(patientId.match(/^ucX?(\d+)/i)?.[1]);
   }
 }
 
