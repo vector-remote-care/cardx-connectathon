@@ -84,7 +84,6 @@ const tableConfig = {
         .join('') + '|';
     }).join('\n');
     const table = [tableHeader, tableSeparator, tableRows].join('\n');
-    output += table + '\n\n';
   
     const hideNan = (v) => isNaN(v) ? '-' : v;
   
@@ -111,9 +110,8 @@ const tableConfig = {
     }).join('\n');
   
     const tableDates = [tableDatesHeader, tableDatesSeparator, tableDatesRows].join('\n');
-    output += tableDates + '\n\n';
 
-    return output;
+    return table + '\n\n' + tableDates + '\n\n';
   }
 
   // Group results by useCase
